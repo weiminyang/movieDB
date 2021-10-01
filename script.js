@@ -1,4 +1,4 @@
-let movieGenre = "now_playing";
+let movieGenre = "popular";
 let loadedMovie = [];
 let likedMovie = [];
 let pageNumber = 1;
@@ -28,11 +28,10 @@ const createCard = (movie) => {
       </div>
     </div>
       `;
-    //   <i class="heartIcon ion-ios-heart"></i>
     return div;
 };
 
-const createModal = (detail) =>{
+const createModal = (detail) => {
     const div = document.createElement('div');
     div.className = "modal-container";
     div.innerHTML = `
@@ -56,30 +55,28 @@ const createModal = (detail) =>{
                 <h4 >Production companies</h4>
                 <div>
                 <img class = "company-img" src="https://image.tmdb.org/t/p/w300/${detail.production_companies[0].logo_path}" alt="company logo">
-                
                 </div>
             </div>
         </div>
-    
     `;
     return div;
 }
 
-const renderDetailModal = () =>{
+const renderDetailModal = () => {
     const modal = createModal(movieDetail);
     const modalDiv = document.querySelector("#modal");
-    modalDiv.style.display="flex";
+    modalDiv.style.display = "flex";
     modalDiv.append(modal);
-    document.querySelector("#modal").addEventListener('click',(e)=>{
-        modalDiv.innerHTML='';
-        modalDiv.style.display="none";
+    document.querySelector("#modal").addEventListener('click', (e) => {
+        modalDiv.innerHTML = '';
+        modalDiv.style.display = "none";
     })
 }
 
 const renderView = () => {
-    if(likedListTab.className ==="tab-view active"){
+    if (likedListTab.className === "tab-view active") {
         selectorContainer.style.visibility = "hidden";
-    }else{
+    } else {
         selectorContainer.style.visibility = "visible";
     };
     const movieContainer = document.querySelector(".movie-container");
@@ -125,27 +122,19 @@ const loadMovie = (movieGenre, pageNumber) => {
 
 const loadMovieDetail = (id) => {
     return fetch(`https://api.themoviedb.org/3/movie/${id}?api_key=6d573a7f79e65234b90fc1260ddfecfb&language=en-US`)
-    .then(
-        (resp) => {
-            return resp.json();
-        })
-    .then((data) => {
-       movieDetail = data;
-       console.log(movieDetail)
-        renderDetailModal();
-    });
+        .then(
+            (resp) => {
+                return resp.json();
+            })
+        .then((data) => {
+            movieDetail = data;
+            console.log(movieDetail)
+            renderDetailModal();
+        });
 }
 
 const loadEvents = () => {
     loadMovie(movieGenre, pageNumber)
-    // .then(()=>{
-    //     const heartIcon = document.querySelector(".heartIcon");
-    //     heartIcon.addEventListener('click', () => {
-    //         console.log("click heart icon")
-    //         if (heartIcon.className === "heartIcon ion-ios-heart-outline") {
-    //         }
-    //     });
-    // });
 }
 
 likedListTab.addEventListener('click', () => {
@@ -188,8 +177,8 @@ movieGenreSelector.addEventListener('change', () => {
     loadMovie(movieGenre);
 })
 
-function titleOnClick(element){
-    const movieId =  element.getAttribute("name");
+function titleOnClick(element) {
+    const movieId = element.getAttribute("name");
     loadMovieDetail(movieId);
 }
 
