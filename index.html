@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Movie List</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.0/css/ionicons.min.css"
+        integrity="sha512-JApjWRnfonFeGBY7t4yq8SWr1A6xVYEJgO/UMIYONxaR3C9GETKUg0LharbJncEzJF5Nmiv+Pr5QNulr81LjGQ=="
+        crossorigin="anonymous" />
+
+</head>
+
+<body>
+    <div class="header">
+        <div class="content">
+
+            <div class="logo">
+                <img class="igm-logo"
+                    src="https://www.themoviedb.org/assets/2/v4/logos/v2/blue_square_2-d537fb228cf3ded904ef09b136fe3fec72548ebc1fea3fbbd1ad9e36364db38b.svg"
+                    alt="logo">
+            </div>
+            <div id="home" class="tab-view active">HOME</div>
+            <div id="liked-list" class="tab-view">LIKED LIST</div>
+
+        </div>
+    </div>
+    <div class="selectorContainer">
+
+
+        <form class="movie-genre-selector" action="/action_page.php">
+            <select name="movies" id="moviesGenre">
+                <option value="popular">Popular</option>
+                <option value="now_playing">Now Playing</option>
+                <option value="top_rated">Top rated</option>
+                <option value="upcoming">Up coming</option>
+            </select>
+        </form>
+
+        <div class="page-selector">
+            <button class="page-button page-button-prev">Prev</button>
+            <span class="page page-number">1</span>
+            <span class="page">/</span>
+            <span class="page total-page-number">100</span>
+            <button class="page-button page-button-next">Next</button>
+        </div>
+    </div>
+    <div class =  "movies">
+
+        <div class="movie-container">
+    
+        </div>
+    </div>
+    <div>
+
+    </div>
+
+    <div id="modal" style="display: none;">
+        <!-- <div class="modal-container">
+            <div class="close-modal">x</div>
+            <div class="modal-content">
+                <div class="modal-img">
+                    <img src="" alt="">
+                </div>
+                <div class="modal-info">
+                    <h3 class="modal-movietitle">title</h3>
+                    <h4 class="modal-overview">Overview</h4>
+                    <p class="overview">overview is too many words</p>
+                    <h4 class="genre">Genre</h4>
+                    <span></span>
+                    <span></span>
+                    <h4 class="rating">Rating</h4>
+                    <p></p>
+                    <h4>Production companies</h4>
+                    <div>
+
+                        <img class="company-img" src="" alt="">
+                        <img class="company-img" src="" alt="">
+                    </div>
+                </div>
+            </div>
+        </div> -->
+    </div>
+
+
+
+
+    <script src="script.js"></script>
+</body>
+
+</html>
