@@ -24,7 +24,7 @@ const createCard = (movie) => {
          <i class="ion-star"></i>
          <h3 class="movie_rating">${movie.vote_average}</h3>
         </div>
-        <i id = "${movie.id}"  class="heartIcon ion-ios-heart-outline" onclick = "heartIconOnClick(this)"></i>
+        <i id = "${movie.id}"  class="heartIcon ion-ios-heart-outline"></i>
       </div>
     </div>
       `;
@@ -122,6 +122,32 @@ const loadMovie = (movieGenre, pageNumber) => {
                 movieId=movieTitle.getAttribute("name");
                 loadMovieDetail(movieId);
             })
+
+            document.querySelector(".movie-container").addEventListener('click',(e)=>{
+                const heartIcon = e.target.closest('.heartIcon');
+                if (heartIcon.className === "heartIcon ion-ios-heart-outline") {
+                    loadedMovie.map((movie) => {
+                        if (movie.id.toString() === heartIcon.id) {
+                            movie.isLike = true;
+                            likedMovie.push(movie);
+                            return movie
+                        }
+                    })
+                    renderView();
+                } else {
+                    loadedMovie.map((movie) => {
+                        if (movie.id.toString() === heartIcon.id) {
+                            movie.isLike = false;
+                            return movie
+                        }
+                    });
+                    likedMovie = likedMovie.filter((movie) => {
+                        return (movie.id.toString() != heartIcon.id)
+                    });
+                    renderView();
+                }
+            })
+            
         });
 }
 
@@ -183,29 +209,7 @@ movieGenreSelector.addEventListener('change', () => {
 })
 
 
-function heartIconOnClick(element) {
-    if (element.className === "heartIcon ion-ios-heart-outline") {
-        loadedMovie.map((movie) => {
-            if (movie.id.toString() === element.id) {
-                movie.isLike = true;
-                likedMovie.push(movie);
-                return movie
-            }
-        })
-        renderView();
-    } else {
-        loadedMovie.map((movie) => {
-            if (movie.id.toString() === element.id) {
-                movie.isLike = false;
-                return movie
-            }
-        });
-        likedMovie = likedMovie.filter((movie) => {
-            return (movie.id.toString() != element.id)
-        });
-        renderView();
-    }
-}
+
 
 
 loadEvents();
