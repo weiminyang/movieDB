@@ -18,7 +18,7 @@ const createCard = (movie) => {
     div.innerHTML = `
     <img class="movie_img" src="https://image.tmdb.org/t/p/w300/${movie.poster_path}" alt = "movie poster"/>
     <div class="movie_data">
-        <h3 name = "${movie.id}" class="movie_title" onclick = "titleOnClick(this)">${movie.title} </h3>
+        <h3 name = "${movie.id}" class="movie_title" >${movie.title} </h3>
       <div class="flex-container">
         <div class="rating">
          <i class="ion-star"></i>
@@ -67,7 +67,7 @@ const renderDetailModal = () => {
     const modalDiv = document.querySelector("#modal");
     modalDiv.style.display = "flex";
     modalDiv.append(modal);
-    document.querySelector("#modal").addEventListener('click', (e) => {
+    document.querySelector(".close-modal").addEventListener('click', (e) => {
         modalDiv.innerHTML = '';
         modalDiv.style.display = "none";
     })
@@ -117,6 +117,11 @@ const loadMovie = (movieGenre, pageNumber) => {
             document.querySelector(".total-page-number").innerHTML = totalPageNumber;
 
             renderView();
+            document.querySelector(".movie-container").addEventListener('click',(e)=>{
+                const movieTitle = e.target.closest('.movie_title');
+                movieId=movieTitle.getAttribute("name");
+                loadMovieDetail(movieId);
+            })
         });
 }
 
@@ -177,10 +182,6 @@ movieGenreSelector.addEventListener('change', () => {
     loadMovie(movieGenre);
 })
 
-function titleOnClick(element) {
-    const movieId = element.getAttribute("name");
-    loadMovieDetail(movieId);
-}
 
 function heartIconOnClick(element) {
     if (element.className === "heartIcon ion-ios-heart-outline") {
