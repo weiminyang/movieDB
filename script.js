@@ -11,6 +11,7 @@ const pageNext = document.querySelector(".page-button-next");
 const homeTab = document.querySelector("#home");
 const likedListTab = document.querySelector("#liked-list");
 const selectorContainer = document.querySelector(".selectorContainer");
+const movieContainer = document.querySelector(".movie-container");
 
 const createCard = (movie) => {
     const div = document.createElement('div');
@@ -79,7 +80,7 @@ const renderView = () => {
     } else {
         selectorContainer.style.visibility = "visible";
     };
-    const movieContainer = document.querySelector(".movie-container");
+    
     movieContainer.innerHTML = "";
     if (likedListTab.className === "tab-view active") {
         likedMovie.forEach((movie) => {
@@ -117,37 +118,8 @@ const loadMovie = (movieGenre, pageNumber) => {
             document.querySelector(".total-page-number").innerHTML = totalPageNumber;
 
             renderView();
-            document.querySelector(".movie-container").addEventListener('click',(e)=>{
-                const movieTitle = e.target.closest('.movie_title');
-                movieId=movieTitle.getAttribute("name");
-                loadMovieDetail(movieId);
-            })
-
-            document.querySelector(".movie-container").addEventListener('click',(e)=>{
-                const heartIcon = e.target.closest('.heartIcon');
-                if (heartIcon.className === "heartIcon ion-ios-heart-outline") {
-                    loadedMovie.map((movie) => {
-                        if (movie.id.toString() === heartIcon.id) {
-                            movie.isLike = true;
-                            likedMovie.push(movie);
-                            return movie
-                        }
-                    })
-                    renderView();
-                } else {
-                    loadedMovie.map((movie) => {
-                        if (movie.id.toString() === heartIcon.id) {
-                            movie.isLike = false;
-                            return movie
-                        }
-                    });
-                    likedMovie = likedMovie.filter((movie) => {
-                        return (movie.id.toString() != heartIcon.id)
-                    });
-                    renderView();
-                }
-            })
             
+          
         });
 }
 
@@ -164,9 +136,7 @@ const loadMovieDetail = (id) => {
         });
 }
 
-const loadEvents = () => {
-    loadMovie(movieGenre, pageNumber)
-}
+
 
 likedListTab.addEventListener('click', () => {
     likedListTab.className = "tab-view active";
@@ -205,11 +175,40 @@ movieGenreSelector.addEventListener('change', () => {
     movieGenre = movieGenreSelector.value;
     pageNumber = 1;
     document.querySelector(".page-number").innerHTML = pageNumber;
-    loadMovie(movieGenre);
+    loadMovie(movieGenre, pageNumber);
+})
+
+document.querySelector(".movie-container").addEventListener('click',(e)=>{
+    const movieTitle = e.target.closest('.movie_title');
+    movieId=movieTitle.getAttribute("name");
+    loadMovieDetail(movieId);
+})
+
+document.querySelector(".movie-container").addEventListener('click',(e)=>{
+    const heartIcon = e.target.closest('.heartIcon');
+    if (heartIcon.className === "heartIcon ion-ios-heart-outline") {
+        loadedMovie.forEach((movie) => {
+            if (movie.id.toString() === heartIcon.id) {
+                movie.isLike = true;
+                likedMovie.push(movie);
+                // return movie
+            }
+        })
+        renderView();
+    } else {
+        loadedMovie.forEach((movie) => {
+            if (movie.id.toString() === heartIcon.id) {
+                movie.isLike = false;
+                // return movie
+            }
+        });
+        likedMovie = likedMovie.filter((movie) => {
+            return (movie.id.toString() !== heartIcon.id)
+        });
+        renderView();
+    }
 })
 
 
 
-
-
-loadEvents();
+loadMovie(movieGenre, pageNumber)
